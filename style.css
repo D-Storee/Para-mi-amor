@@ -1,0 +1,485 @@
+/* ---------- RESET BÁSICO ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- TIPOGRAFÍA GLOBAL ---------- */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.4;
+}
+
+/* =======================================================
+   PÁGINA DE BIENVENIDA (FONDO ROSADO + BRILLOS FLUIDOS)
+   ======================================================= */
+body.welcome-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: #ffd6e8; /* rosado claro */
+  color: #4a1f3d;
+}
+
+/* Imagen de fondo (si se usa via HTML) */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  filter: brightness(1) saturate(1);
+}
+
+/* Overlay suave */
+body.welcome-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 246, 252, 0.35);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+/* ---------- BRILLOS FLUIDOS (ahora mantienen visibilidad hasta arriba) ---------- */
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.9)) blur(1px);
+  opacity: 0;
+  --d: 7s;
+  width: 18px;
+  height: 18px;
+  animation: sparkleRise var(--d) linear infinite;
+  z-index: 2;
+}
+
+/* Variantes de tamaño */
+.sparkle.small { width: 12px; height: 12px; }
+.sparkle.medium { width: 20px; height: 20px; }
+.sparkle.large { width: 28px; height: 28px; }
+
+/* Animación ajustada: brillo sube, se mueve ligeramente y mantiene opacidad hasta near top */
+@keyframes sparkleRise {
+  0% {
+    transform: translateX(0px) translateY(110vh) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: translateX(3px) translateY(85vh) scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(-2px) translateY(55vh) scale(1.05);
+    opacity: 1;
+  }
+  85% {
+    transform: translateX(1px) translateY(25vh) scale(0.98);
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0px) translateY(-10vh) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* ---------- CONTENIDO ---------- */
+.content {
+  position: relative;
+  z-index: 5;
+  max-width: 600px;
+  padding: 0 0.5rem;
+}
+
+body.welcome-page h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #4a1f3d;
+}
+body.welcome-page p {
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  color: #4a1f3d;
+}
+.small {
+  font-size: 0.75rem;
+  margin-top: 1rem;
+  opacity: .9;
+  color: #4a1f3d;
+}
+
+.parrafo{
+    text-align: center;
+}
+
+/* ---------- BOTÓN ---------- */
+.btn {
+  background: linear-gradient(135deg, #ff8ecb, #ff61a6);
+  padding: 0.85rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform .25s ease, filter .25s ease;
+  box-shadow: 0 14px 40px -5px rgba(255, 105, 180, 0.5);
+}
+.btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* =======================================================
+   PÁGINA DE CONTENIDO
+   ======================================================= */
+body.content-page {
+  background: #fff5fb;
+  color: #3f1f4d;
+  padding: 1rem;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+body.content-page h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  margin-bottom: .25rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: .8;
+}
+
+/* IMAGEN DEL HEADER */
+.header-img {
+  width: 120px;
+  height: auto;
+  display: block;
+  margin: 0.75rem auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  object-fit: cover;
+}
+
+.header-bg {
+  position: absolute;
+  top: -20px; /* más arriba */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  max-width: 90%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;          /* sin transparencia */
+  filter: none;        /* sin desenfoque */
+}
+
+
+.card2 {
+  background: white;
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  box-shadow: 0 15px 40px -10px rgba(159, 93, 170, 0.15);
+}
+
+.card {
+  max-width: 280px; /* ancho máximo de la tarjeta */
+  margin: auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #fff;
+  text-align: center; /* centra todo el contenido */
+}
+
+/* Título centrado */
+.card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #4a1f3d;
+}
+
+/* Imagen redimensionada */
+.foto {
+  width: 100%;       /* ocupa el ancho del contenedor */
+  max-width: 250px;  /* tamaño máximo */
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;    /* la centra horizontalmente */
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(159, 93, 170, 0.15);
+  margin-bottom: 1.75rem; /* separación entre cada card */
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+/* COLLAGE */
+.collage {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(159, 93, 170, 0.15);
+  margin-bottom: 1.75rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #4a1f3d;
+}
+
+.foto-collage {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.foto-collage img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.foto-grande {
+  flex: 2;
+  min-width: 160px;
+}
+
+.foto-columnita {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 100px;
+}
+
+.foto-grande1 {
+  flex: 2;
+  min-width: 160px;
+}
+
+.foto-columnita1 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 120px;
+}
+
+.fotos-iguales {
+  display: flex;
+  gap: 1rem;         /* espacio entre las fotos */
+}
+
+.fotos-iguales img {
+  flex: 1;           /* ambas ocupan el mismo espacio */
+  width: 100%;       
+  height: 200px;     /* fuerza un alto igual */
+  object-fit: cover; /* recorta para que no se deformen */
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* SECCION COLLAGE 4 */
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(159, 93, 170, 0.15);
+  margin-bottom: 1.75rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #4a1f3d;
+}
+
+.mosaico {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.mosaico img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.mosaico img:hover {
+  transform: scale(1.03);
+}
+
+
+/* Imagen redimensionada */
+.foto {
+  width: 100%;       /* ocupa el ancho del contenedor */
+  max-width: 250px;  /* tamaño máximo */
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;    /* la centra horizontalmente */
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(159, 93, 170, 0.15);
+  margin-bottom: 1.75rem; /* separación entre cada card */
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+
+.btn-back {
+  display: inline-block;
+  margin-top: .5rem;
+  background: none;
+  border: 2px solid #d88bd5;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  color: #6a317f;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background .2s ease;
+}
+.btn-back:hover {
+  background: rgba(216, 139, 213, 0.1);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  margin-bottom: .5rem;
+  font-weight: 600;
+}
+
+.img-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  margin: .75rem 0;
+}
+img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* =======================================================
+   RESPONSIVE
+   ======================================================= */
+@media (max-width: 480px) {
+  body.content-page {
+    padding: 0.75rem;
+  }
+  .container {
+    padding-bottom: 2rem;
+  }
+  .card {
+    padding: 1rem;
+  }
+}
+
+
+/* ===== Modal de imagen ===== */
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.image-modal .modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  animation: zoomIn 0.3s ease;
+}
+
+.image-modal .close {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.image-modal .close:hover {
+  color: #ffb6d5;
+}
+
+@keyframes zoomIn {
+  from {transform: scale(0.8); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+
+
+
+
